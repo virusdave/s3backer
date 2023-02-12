@@ -806,11 +806,11 @@ fail:
     return NULL;
 }
 
-#define FORCE_FREE2(p, def) do {                                        \
-                                if ((p) != NULL && (p) != (def)) {      \
-                                    free((void *)(intptr_t)(p));        \
-                                    (p) = NULL;                         \
-                                }                                       \
+#define FORCE_FREE2(p, def) do {                                                                \
+                                if ((p) != NULL && ((const void *)p) != ((const void *)def)) {  \
+                                    free((void *)(intptr_t)(p));                                \
+                                    (p) = NULL;                                                 \
+                                }                                                               \
                             } while (0)
 #define FORCE_FREE(p)       FORCE_FREE2(p, NULL)
 
